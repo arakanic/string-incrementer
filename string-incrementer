@@ -1,0 +1,37 @@
+function incrementString (string) {
+  let text = string.match(/[A-Z]/gi)
+  let digits = string.match(/[0-9]/g)
+  if (!text) { text = "" }
+  if (!digits) { digits = [0] }
+  
+  let digitsRev = digits.map(d => Number(d)).reverse()
+  digitsRev[0] += 1
+  for (let d = 0; d < digitsRev.length; d++) {
+    if (digitsRev[d] === 10) {
+      digitsRev[d] = 0
+      if (d === digitsRev.length - 1) {
+        digitsRev.push(1)
+      }
+      else {
+        digitsRev[d + 1] += 1
+      }
+    }
+  }
+  
+  digits = digitsRev.reverse().join("")
+  
+  let arr = text.concat(digits)
+  let result = ''
+  for (let i = 0; i < arr.length; i++) {
+    result += arr[i].toString()
+  }
+
+  return result
+}
+
+incrementString("foobar000")
+incrementString("foo")
+incrementString("foobar001")
+incrementString("foobar99")
+incrementString("foobar099")
+incrementString("")
